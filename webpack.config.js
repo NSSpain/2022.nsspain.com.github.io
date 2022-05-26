@@ -93,10 +93,10 @@ module.exports = (env) => {
                 template: './travel.html',
             }),
 
-            new HtmlWebpackPlugin({
-                filename: 'remo.html',
-                template: './remo.html',
-            }),
+            // new HtmlWebpackPlugin({
+            //     filename: 'remo.html',
+            //     template: './remo.html',
+            // }),
 
             new ProvidePlugin({
                 $: 'jquery',
