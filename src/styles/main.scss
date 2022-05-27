@@ -685,6 +685,12 @@ h1.ui.header.header-primary {
     }
 }
 @media only screen and (max-width: 441px) {
+    body {
+        background-image: url(/images/logo-large-bg.png);
+        background-repeat: no-repeat;
+        background-position: 70% 100%;
+        background-size: 55%;
+    }
     h1.ui.header.header-primary {
         margin-left: 80px;
         margin-right: 80px;
