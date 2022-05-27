@@ -48,7 +48,7 @@ span.focus {
     .expose {
         font-size: 4rem;
         line-height: 4rem;
-        color: white !important;
+        color: #FAF7EF !important;
         font-weight: 300 !important;
     }
 }
@@ -68,7 +68,7 @@ h3.ui.header .sub.header, h4.ui.header .sub.header {
 .ui.secondary.inverted.menu,
 .ui.secondary.pointing.menu {
     a.item {
-        color: rgba(255, 5, 5, 1) !important;
+        color: #C55746 !important;
         text-decoration: none;
     }
     a.item:hover {
@@ -76,8 +76,8 @@ h3.ui.header .sub.header, h4.ui.header .sub.header {
         border-color: rgba(255, 5, 5, 0.5) !important;
     }
     a.item:active, .active.item {
-        color: rgba(255, 5, 5, 1) !important;
-        border-color: rgba(255, 5, 5, 1) !important;
+        color: #C55746 !important;
+        border-color: #C55746 !important;
     }
     img { // logo
         max-height: 50px;
@@ -94,7 +94,7 @@ h3.ui.header .sub.header, h4.ui.header .sub.header {
 .ui.basic.inverted.button,
 .ui.basic.inverted.buttons .button:visited,
 .ui.basic.inverted.button:visited {
-    background-color: white !important;
+    background-color: #FAF7EF !important;
     border-radius: 8px !important;
     color: #C55746 !important;
     border: solid 2px #486E7F !important;
@@ -140,7 +140,7 @@ h3.ui.header .sub.header, h4.ui.header .sub.header {
         text-decoration: underline;
     }
     a:hover {
-        color: rgba(255, 5, 5, 1);
+        color: #C55746;
     }
 }
 .section-travel {
@@ -149,7 +149,7 @@ h3.ui.header .sub.header, h4.ui.header .sub.header {
     margin-top: 0;
     font-size: 2rem;
     .ui.body strong {
-        color: white !important;
+        color: #FAF7EF !important;
     }
     h1.ui.header.header-primary {
         font-size: 4rem;
@@ -168,7 +168,7 @@ h3.ui.header .sub.header, h4.ui.header .sub.header {
         margin-bottom: 2rem;
     }
     .ui.items > .item > .content > .description {
-        color: white !important;
+        color: #FAF7EF !important;
     }
     .ui.items > .item > .content > .header {
         color: rgba(255,255,255,0.6);
@@ -218,9 +218,9 @@ h3.ui.header .sub.header, h4.ui.header .sub.header {
 }
 .section-insights {
     margin: 0 !important;
-    background-color: black;
+    background-color: #486E7F;
     .ui.header span.focus, .ui.header .sub.header span.focus, span.focus {
-        color: white !important;
+        color: #FAF7EF !important;
     }
     .location {
         // background-image: url(/images/bg-map.jpg);
@@ -378,7 +378,7 @@ h1.ui.header.header-primary {
     .ui.cards > .card,
     .ui.card {
         border-radius: 40px;
-        background-color: black;
+        background-color: #486E7F;
         box-shadow: 0 0 60px 20px rgba(54, 54, 54, 0.2) !important;
         text-align: center;
         padding: 2rem 1rem !important;
@@ -388,10 +388,10 @@ h1.ui.header.header-primary {
         color: rgba(255,255,255,0.6);
     }
     .ticket-description {
-        color: white;
+        color: #FAF7EF;
     }
     .price {
-        color: white;
+        color: #FAF7EF;
         font-size: 2.4rem;
         line-height: 2.4rem;
         font-style: italic;
@@ -400,7 +400,7 @@ h1.ui.header.header-primary {
     .ui.centered.header, .ui.center.aligned.header {
         color: black !important;
         span {
-            color: rgba(255, 5, 5, 1);
+            color: #C55746;
         }
         a,
         a:active,
@@ -411,7 +411,7 @@ h1.ui.header.header-primary {
             text-decoration: underline;
         }
         a:hover {
-            color: rgba(255, 5, 5, 1);
+            color: #C55746;
         }
     }
 }
@@ -465,7 +465,7 @@ h1.ui.header.header-primary {
     .ui.centered.header, .ui.center.aligned.header {
         color: black !important;
         span {
-            color: rgba(255, 5, 5, 1);
+            color: #C55746;
         }
     }
     a,
@@ -477,7 +477,7 @@ h1.ui.header.header-primary {
         text-decoration: underline;
     }
     a:hover {
-        color: rgba(255, 5, 5, 1);
+        color: #C55746;
     }
 }
 .schedule {
@@ -498,7 +498,7 @@ h1.ui.header.header-primary {
     .ui.centered.header, .ui.center.aligned.header {
         color: black !important;
         span {
-            color: rgba(255, 5, 5, 1);
+            color: #C55746;
         }
     }
     a,
@@ -510,7 +510,7 @@ h1.ui.header.header-primary {
         text-decoration: underline;
     }
     a:hover {
-        color: rgba(255, 5, 5, 1);
+        color: #C55746;
     }
     .time {
         color: #486E7F;
@@ -527,9 +527,9 @@ h1.ui.header.header-primary {
     border-bottom: 1px solid rgba(13, 224, 235, 0.1);
 }
 .section-callforhelp {
-    background-color: black;
+    background-color: #486E7F;
     .ui.centered.header, .ui.center.aligned.header, .ui.inverted.header {
-        color: white !important;
+        color: #FAF7EF !important;
     }
 }
 .section-footer {
@@ -538,24 +538,24 @@ h1.ui.header.header-primary {
 }
 .section-extra {
     margin: 0 !important;
-    background-color: black;
+    background-color: #486E7F;
     .extra {
         padding-top: 3rem;
         padding-bottom: 5rem;
     }
     .ui.header .sub.header span {
-        color: rgba(255, 5, 5, 1) !important;
+        color: #C55746 !important;
     }
     a,
     a:active,
     a:visited,
     a:focus,
     a:link {
-        color: white;
+        color: #FAF7EF;
         text-decoration: underline;
     }
     a:hover {
-        color: rgba(255, 5, 5, 1);
+        color: #C55746;
     }
 }
 .footer-note {
@@ -565,18 +565,18 @@ h1.ui.header.header-primary {
     padding-bottom: 1rem;
     padding-left: 1rem;
     padding-right: 1rem;
-    color: white;
-    background-color: black;
+    color: #FAF7EF;
+    background-color: #486E7F;
     a,
     a:active,
     a:visited,
     a:focus,
     a:link {
-        color: white;
+        color: #FAF7EF;
         text-decoration: underline;
     }
     a:hover {
-        color: rgba(255, 5, 5, 1);
+        color: #C55746;
     }
 }
 @media only screen and (max-width: 1580px) {
