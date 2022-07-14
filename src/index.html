@@ -1,0 +1,1705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NSSpain X</title>
+    
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#ffffff">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+    <script type="text/javascript">
+        function goHomeYouAreDrunk() {
+            location.href = "index.html"
+        }
+        function goToC4P() {
+            location.href = "index.html#c4p"
+        }
+        function goToSpeakers() {
+            location.href = "index.html#speakers"
+        }
+        function goToTickets() {
+            location.href = "index.html#tickets"
+        }
+        function goToSponsorships() {
+            location.href = "index.html#sponsorships"
+        }
+        function goToTravel() {
+            location.href = "travel.html"
+        }
+        function goToSchedule() {
+            location.href = "index.html#schedule"
+        }
+        function goToFAQ() {
+            location.href = "faq.html"
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://semantic-ui.com/dist/semantic.min.css">
+    <script src="https://semantic-ui.com/javascript/library/jquery.min.js"></script>
+    <script>
+        $(document).ready(() => {
+            // hide all content
+            $(".schedule-content").hide();
+
+            // show workshop
+            $(".schedule-content.day-1").show();
+
+            // on click
+            $(".simke-menu a.item").click((e) => {
+                e.preventDefault();
+
+                // clicked element
+                let el = $(e.target);
+
+                // check if clicked element is a, or one of its children
+                if (!el.is('a.item')) {
+                    // not a, go up on the dom to dinf a
+                    el = el.closest('a.item');
+                }
+
+                // remove class active to all elements
+                $(".simke-menu a.item").removeClass('active');
+                // add class to clicked
+                el.addClass('active');
+
+                // get clicked element id
+                let id = el.attr('id');
+
+                // hide all content
+                $(".schedule-content").hide();
+
+                // show only contet with the same class as the clicked link id
+                $(".schedule-content." + id).show();
+            });
+            // add local times
+            const divs = $(".time")
+            const now = new Date();
+            divs.each(index => {
+                const timeSpan = divs[index].children[1];
+                const utcParts = timeSpan.innerHTML.match(/(\d+)\:(\d+)(\wm)/);
+                if (!utcParts) return;
+                let utcHour = utcParts[3] == "pm" ? parseInt(utcParts[1]) + 12 : utcParts[1];
+                if (parseInt(utcParts[1]) == 12 && utcParts[3] == "am") utcHour = 0;
+                if (parseInt(utcParts[1]) == 12 && utcParts[3] == "pm") utcHour = 12;
+                const utcMinutes = utcParts[2];
+                const utcTime = Date.UTC(2022, 11, 19, utcHour, utcMinutes);
+
+                const localDate = new Date(utcTime);
+                let ampm = localDate.getHours() > 11 ? "pm" : "am";
+                let hours = localDate.getHours();
+                
+                if (hours == 0) { hours = 12; ampm = "am"}
+                else {
+                    hours = hours > 11 ? localDate.getHours() - 12 : localDate.getHours();
+                    if (hours == 0) { hours = 12; ampm = "pm"}
+                }
+
+                if (hours < 10) hours = "0" + hours;
+                let minutes = localDate.getMinutes();
+                if (minutes < 10) minutes = "0" + minutes;
+                const localTimeString = hours + ":" + minutes + ampm + " local";
+
+                if ($(document).width() > 1000) {
+                    divs[index].children[1].innerHTML += " | " + localTimeString;
+                } else {
+                    divs[index].innerHTML += "<br/><span class='focus'>[ </span>" + localTimeString + " <span class='focus'>]</span>";
+                }
+            });
+        });
+    </script>
+
+</head>
+<body class="index">
+
+    <div class="ui secondary pointing inverted massive menu menu-main">
+        <div class="item menu-brand">
+            <a href="javascript:goHomeYouAreDrunk();">
+                <img class="ui image" src="/images/logo.png" />
+            </a>
+        </div>
+        <div class="right menu menu-navigation">
+            <a class="item active" href="javascript:goHomeYouAreDrunk();">
+                Home
+            </a>
+            <!-- <a class="item" href="javascript:goToC4P();">
+                C4P
+            </a> -->
+            <a class="item" href="javascript:goToTravel();">
+                Travel
+            </a>
+            <a class="item" href="javascript:goToSponsorships();">
+                Sponsors
+            </a>
+            <!-- <a class="item" href="javascript:goToSpeakers();">
+                Speakers
+            </a> -->
+            <!-- <a class="item" href="javascript:goToSchedule();">
+                Schedule
+            </a> -->
+            <a class="item" href="javascript:goToTickets();">
+                Tickets
+            </a>
+            <a class="item" href="javascript:goToFAQ();">
+                FAQ
+            </a>
+        </div>
+    </div>
+
+    <div class="section section-intro">
+        <div class="ui container">
+            <div class="ui one column grid">
+                <div class="sixteen wide mobile ten wide tablet eight wide computer aligned column">
+                    <div class="eight wide computer centered">
+                        <h1 class="ui inverted header header-primary">
+                            Join the <span class="focus">[</span> Apple developers <span class="focus">]</span> Community
+                            <div class="sub header">
+                                <strong>NSSpain X</strong> is the biggest iOS/macOS related event in the country carefully crafted for you by the community! Awesome speakers and lots of fun!
+                            </div>
+                        </h1>
+                        <h2 class="ui inverted header">
+                            [ <span class="focus">Sept 15th & 16th</span>  ] 2022
+                        </h2>
+                        <a class="ui basic inverted big button" href="javascript:goToTickets();">
+                            Get your ticket
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-gallery">
+        <div class="ui container">
+            <div class="ui three column center aligned stackable grid">
+                <div class="column column-1">
+                    <img class="ui image" style="background-image:url(/images/nsspain/1.jpg)"/>
+                    <h3 class="ui inverted header">
+                        Conference
+                        <div class="sub header">
+                            SwiftUI, Catalyst, AppKit, Swift, MVC, Objective-C, Coordinators, Widgets, UIKit, Animations, Reactive... technical and inspirational talks mix together during 2 days of pure joy.
+                        </div>
+                    </h3>
+                </div>
+                <div class="column column-2">
+                    <img class="ui image" style="background-image:url(/images/nsspain/3.jpg)"/>
+                    <h3 class="ui inverted header">
+                        Software tasting
+                        <div class="sub header">
+                            We all have question, we all strugle, we all like to see if someone else found the same solution, we all love when we finally find asnwers, and at NSSpain you'll have the space to talk and discuss with other developers like you.
+                        </div>
+                    </h3>
+                </div>
+                <div class="column column-3">
+                    <img class="ui image" style="background-image:url(/images/nsspain/2.jpg)"/>
+                    <h3 class="ui inverted header">
+                        Community
+                        <div class="sub header">
+                            NSSpain is all about people, come to enjoy with software crafters of our community like you.
+                        </div>
+                    </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-stripes">
+        <div class="section section-insights">
+            <div class="insights">
+                <div class="ui container">
+                    <div class="ui three column center aligned grid">
+                        <div class="column">
+                            <h2 class="ui inverted header">
+                                <span class="expose">200+</span>
+                                <div class="sub header">
+                                    <span>
+                                        Attendees
+                                        <br />
+                                        [ <span class="focus">developers like you</span> ]
+                                    </span>
+                                </div>
+                            </h2>
+                        </div>
+                        <div class="column">
+                            <h2 class="ui inverted header">
+                                <span class="expose">2</span>
+                                <div class="sub header">
+                                    <span>
+                                        Days
+                                        <br />
+                                        [ <span class="focus">of talks & community</span> ]
+                                    </span>
+                                </div>
+                            </h2>
+                        </div>
+                        <div class="column">
+                            <h2 class="ui inverted header">
+                                <span class="expose">20+</span>
+                                <div class="sub header">
+                                    <span>
+                                        Speakers
+                                        <br />
+                                        [ <span class="focus">from all around the world</span> ]
+                                    </span>
+                                </div>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- <div class="section section-venue">
+            <div class="ui container">
+                <div class="ui one column grid">
+                    <div class="sixteen wide mobile ten wide tablet eight wide computer right floated column">
+                        <h1 class="ui inverted header header-primary">
+                            A new kind of <span class="focus">[&nbsp;</span>experience<span class="focus">&nbsp;]</span>
+                            <div class="sub header">
+                                <p><strong>NSSpain X</strong> is an online, 36 hours conference. Yes, you read that right, we'll start on Thursday 
+                                    and finish on Friday, running 36 hours continuously. We did it as a expriment in 2020 and it worked incredibly well, so we are making
+                                it again in 2022!</p>
+                                    
+                                <p>How does it work? <strong>There will be three MCs</strong>, one in the timezones covering Europe and Africa, another one in the timezones covering 
+                                   Asia and Oceania, and a third one live in North, Central and South Americas! If you’re currently based 
+                                   in a station on Antarctica these MCs should cover your needs too. Take a look at the 
+                                   schedule to get an idea of how we'll make it work.</p>
+                                    
+                                <p>All the <strong>talks will be recorded</strong> and will be available for the attendees right after the conference. 
+                                    Our flexible schedule means you can drop in and out whenever you please, so you can fit the event around your schedule.</p>
+                                    
+                                <p>Sounds like fun? <strong>Join us</strong> for another event you won't forget! 😊</p>
+                            </div>
+                        </h1>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+        <div class="section section-venue">
+            <div class="ui container">
+                <div class="ui one column centered grid">
+                    <div class="sixteen wide mobile ten wide tablet eight wide computer center aligned column">
+                        <h1 class="ui inverted header header-primary">
+                            Venue [ <span class="focus">Riojaforum</span> ]
+                            <div class="sub header">
+                                A <a href="https://riojaforum.com/en" target="_blank">beautiful building</a> placed on a green area right next to the <a href="https://en.wikipedia.org/wiki/Ebro" target="_blank">Ebro river</a>. We couldn’t have asked for a better space to hold the conference.
+                            </div>
+                        </h1>
+                    </div>
+                </div>
+                <div class="ui two column stackable grid">
+                    <div class="column">
+                        <div class="gallery">
+                            <a href="https://riojaforum.com/comunidad/riojaforum/recurso/sala-de-camara/c94ce929-1cb1-4df9-b36d-69de92c7f103" target="_blank">
+                                <img class="ui image img-back" style="background-image:url(/images/venue/1.jpg)"/>
+                            </a>
+                            <a href="https://riojaforum.com/comunidad/riojaforum/recurso/sala-de-camara/c94ce929-1cb1-4df9-b36d-69de92c7f103" target="_blank">
+                                <img class="ui image img-front" style="background-image:url(/images/venue/2.jpg)"/>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui massive list">
+                            <div class="item">
+                                [ <span>Near Logroño's downtown</span> ]
+                            </div>
+                            <div class="item">
+                                [ <span>Near public transport stops</span> ]
+                            </div>
+                            <div class="item">
+                                [ <span>Green areas nearby</span> ]
+                            </div>
+                            <div class="item">
+                                [ <span>Parking space for your car or bike</span> ]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div id="joinus" class="section section-callforhelp">
+        <div class="title">
+            <div class="ui container">
+                <div>
+                    <h1 class="ui inverted center aligned header header-primary">
+                        <span class="focus">[</span> Join us! <span class="focus">]</span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="callforsponsors">
+            <div class="ui container">
+                <div>
+                    <h2 class="ui inverted header">
+                        Ready for 36 continuous hours of talks, community & fun?
+                    </h2>
+                </div>
+                <div>
+                    <a class="ui basic inverted big button" href="https://ti.to/nsspain/2022" target="_blank">
+                        Get a ticket
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <!-- <div id="speakers" class="section section-speakers">
+        <div class="speakers">
+            <div class="ui container">
+                <div>
+                    <h1 class="ui inverted center aligned header header-primary">
+                        <span class="focus">[</span> Speakers <span class="focus">]</span>
+                    </h1>
+                </div>
+                <div class="ui two column stackable aligned grid">
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/ramon.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/rmedranollamas" target="_blank">Ramón Medrano Llamas</a>
+                                    <div class="meta">
+                                        <span class="c1">SRE principles for client-side reliability</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Ramón Medrano Llamas is a Site Reliability Engineer (SRE) at Google in Zürich, leading the Identity team, responsible for the authentication and Identity management services at Google. He concentrates on the reliability aspects of new Google products and new features of existing products, ensuring that they meet the high bar of a Google service. Before joining Google in 2013, he worked at CERN developing and designing distributed systems for physics data analysis. He holds a master's degree in computer science and is currently working on a PhD on autonomic system management part time.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/an.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/antranapp" target="_blank">An Tran</a>
+                                    <div class="meta">
+                                        <span class="c1">Atomic development - Speed up development feedback loop with continuous code deployment</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>An is currently helping to build a digital Bank App at <a href="https://www.grab.com/sg/" target="_blank">Grab</a>, the biggest super app in South East Asia. He is a big fan of Swift and has been converted into an iOS Developer from Web development career because of it. An loves to share what he learns in his blog AnTran.App   and also in the community of Vietnamese Swift developers <a href="https://swiftvietnam.com" target="_blank">SwiftVietnam</a>, which he founded in 2020 to support and connect with Swift developers in Vietnam. In his free time, he loves playing with his two toddlers, browsing Twitter and Github to find awesome content from the Swift community, and sometimes rocket and space science books.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/moritz.jpeg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/mprecke" target="_blank">Moritz Philip Recke</a>
+                                    <div class="meta">
+                                        <span class="c1">How to create a media streaming app with SwiftUI and AWS</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Moritz Philip Recke is a passionate and empathetic engineer at heart with strong background in product design, business development and project management and keen ability to sense white space. He is a faculty member of the Apple Developer Academy at University of Naples Federico II and facilitates the formative education of students based on the Challenge Based Learning methodology framework. Beyond being a 🧑‍💻Swift Connoisseur at <a href="http://createwithswift.com/" target="_blank">createwithswift.com</a>, he is a 📷 Photography Enthusiast and 🍣 Sushi Aficionado.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/alex.jpeg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/amlcurran" target="_blank">Alex Curran</a>
+                                    <div class="meta">
+                                        <span class="c1">Building great real-time apps</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Alex is a staff engineer at Freetrade and has been working across Android and iOS since 2009. His interests include mobile architecture and how iOS and Android teams can work together to build fantastic experiences for both users and the developers making them!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/jeroen.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/appforce1" target="_blank">Jeroen Leenarts</a>
+                                    <div class="meta">
+                                        <span class="c1">Micro/feature frameworks. What, why and how?</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>I am a software developer currently specialized in iOS development. I also create a podcast called "AppForce1" focussed on iOS app developers. I have a long and varied history working on all kinds of technical challenging systems. But since 2012 my main focus have been the iOS and related platforms. I started working as a software developer in 2002.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/adrienne.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/AdrienneTacke" target="_blank">Adrienne Braganza Tacke</a>
+                                    <div class="meta">
+                                        <span class="c1">You Can Do it, Put your Backend to it!</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Currently a Senior Developer Advocate for MongoDB, Adrienne Tacke is also a Filipina software engineer, keynote speaker, published author of the book Coding for Kids: Python, and a LinkedIn Learning instructor who specializes in Cloud Development courses. Perhaps most important, however, is that she spends way too much money on desserts and ungodly amounts of time playing Age of Empires II.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/gabriel.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/GabrielSavit" target="_blank">Gabriel Savit</a>
+                                    <div class="meta">
+                                        <span class="c1">Not just another DevOps talk</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Gabriel is a former iOS engineer who left for the dark side (web!) to build a tool *for *mobile teams. It's called <a href="https://runway.team" target="_blank">Runway</a>, and it helps mobile teams coordinate and automate their releases. Previously, Gabriel co-created a popular bill splitting app called Tab, and he worked on Rent the Runway's iOS app from green field through unicorn status. He enjoys designing and then building awesome mobile experiences, and he dislikes dealing with build pipelines. Outside of mobile, Gabriel is known to travel to countries people haven't heard of and he spends as much time as possible underwater. He holds three passports and a very expired pilot's license.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/vincent.jpeg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/v_pradeilles" target="_blank">Vincent Pradeilles</a>
+                                    <div class="meta">
+                                        <span class="c1">Looking through the Mirror 🪞</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Vincent started working on iOS apps back in 2011. For the last years, he's been working at Worldline, where he contributes to building great apps for major French banks. He loves Swift and enjoys sharing about it on the Internet. Most recently, he started a YouTube channel to share his knowledge of Swift and iOS. He's also the one behind the Twitter account <a href="https://twitter.com/ios_memes" target="_blank">@ios_memes</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/danijela.jpeg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/dvrzan" target="_blank">Danijela Vrzan</a>
+                                    <div class="meta">
+                                        <span class="c1">There's no IF or ELSE. It's all about YOU.</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Danijela is an iOS Developer Consultant on the Front-End Engineering team at Deloitte Canada. When she’s not working on client projects, she’s writing technical articles for <a href="http://raywenderlich.com" target="_blank">raywenderlich.com</a>. She enjoys building mobile apps, especially considering her decision to switch from Civil Engineering to Programming. It was hard to find her place in this tech jungle, but she fell in love with writing iOS apps and will continue to do so in foreseeable future. Danijela is from Croatia, but currently lives in Toronto, Canada. You can find her hiking or lifting heavy weigths at the gym. When not working out, she’s playing video-games, cooking, and trying to keep up with Swift updates!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/nate.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/nheagy" target="_blank">Nate Heagy</a>
+                                    <div class="meta">
+                                        <span class="c1">Mac as the Knife: iOS dev tips from the culinary arts</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Nate is a Software Engineer at Twitter. He began programming by creating websites in Perl, and has since contributed to WordPress for iOS, GeekBench, and others—which is to say he’s been writing questionable code for quite a while. His interest in cooking was deepened by the pandemic and now he can’t stop posting photos of his culinary creations to Instagram (previously Twitter Fleets, RIP). Now he’s created a talk that gently combines programming and cooking into a signature spicy and slightly nutty dish.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/yono.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/yonomitt" target="_blank">Yono Mittlefehldt</a>
+                                    <div class="meta">
+                                        <span class="c1">Computer Vision: Not Just For Breakfast Anymore</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Yono is an indie app developer and co-creator of Gus on the Go. He helps companies build iOS apps and software products, specializing in computer vision and machine learning. He also writes tutorials for <a href="http://raywenderlich.com" target="_blank">raywenderlich.com</a>. His favorite emoticon is ಠ_ಠ</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/tomasz-tomasz.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/tgebarowski" target="_blank">Tomasz Gebarowski</a>
+                                    <div class="meta">
+                                        <span class="c1">Server Driven UI at scale (@ Allegro)</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Team Leader, Senior Software Engineer, bringing server-driven UI to e-commerce world @ Allegro. Previously working on mobile banking, secure messaging and distributed VoIP services. Interested in scaling things and improving the process. Experienced in maintaining large codebases and long-term projects. Privately father of two, home automation lover and LEGO builder.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/tomasz-jakub.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="https://linkedin.com/in/jakubkuzimski" target="_blank">Jakub Kuzimski</a>
+                                    <div class="meta">
+                                        <span class="c1">Server Driven UI at scale (@ Allegro)</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Team Leader, Senior Software Engineer, scaling mobile development, author, and architect of Server-Driven UI @Allegro. Interested in scaling in large projects. Father of two. Road bike rider.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/azam.jpeg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/azamsharp" target="_blank">Mohammad Azam</a>
+                                    <div class="meta">
+                                        <span class="c1">Getting Started with Async/Await in iOS</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Mohammad Azam is a veteran developer who has been professionally writing software for more than a decade. Azam worked as a lead mobile developer for many fortune 500 companies and played an integral role in their success. Azam is also a top Udemy instructor for mobile with more than 40K students. Apart from Udemy, Azam is also a frequent contributor to LinkedIn with top rated courses. At present Azam is a lead instructor at DigitalCrafts, software bootcamp. Azam has trained developers who are now working at companies including Apple, JP Morgan Chase, Exxon etc.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/josh.jpeg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/joshdholtz" target="_blank">Josh Holtz</a>
+                                    <div class="meta">
+                                        <span class="c1">Xcode Cloud: What is it? How to use it? Is it for me?</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Josh is the lead maintainer of <a href="https://fastlane.tools" target="_blank">fastlane tools</a> and co-owner of <a href="https://rokkincat.com" target="_blank">RokkinCat</a> — a software consulting company based in Milwaukee, WI. He started working on fastlane in 2015 and took over as lead maintainer in 2018. He has a passion for building tools that others find helpful. In the past year he’s been more active in the indie developer community starting <a href="https://indiedevmonday.com" target="_blank">Indie Dev Monday</a> (a weekly newsletter) and releasing <a href="https://connectkit.app" target="_blank">ConnectKit</a> and <a href="https://anotterrss.com" target="_blank">An Otter RSS</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/ben.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/subdigital" target="_blank">Ben Scheirman</a>
+                                    <div class="meta">
+                                        <span class="c1">Modular Project Architecture</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Ben is a Senior iOS Engineer at Spin. He also runs <a href="https://nsscreencast.com" target="_blank">NSScreencast</a>, a video tutorial site with more than 500 videos on iOS development. He’s also the author of <a href="https://combineswift.com" target="_blank">Combine Swift</a> a premium course for learning the Combine framework. Ben hails from Houston, Texas. When not programming, you can find him playing guitar or making award-winning Texas BBQ.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/james.jpeg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/_JamesDale" target="_blank">James Dale</a>
+                                    <div class="meta">
+                                        <span class="c1">Grasping Reality: Hand Poses with ML and AR</span>
+                                    </div>
+                                    <div class="description">
+                                        <p><a href="https://jamesdale.com.au" target="_blank">James Dale</a> is an entrepreneur, developer and Co-Founder/CTO of the US-based startup <a href="https://hags.app" target="_blank">HAGS</a>, an app for Gen-Z backed by Google and BoxGroup. James is the recipient of four Apple WWDC Scholarship awards, and a serial iOS app developer creating apps such as <a href="https://cleansky.app" target="_blank">CleanSky</a> and RulAR. He previously worked at Apple in the Machine Learning Platform & Technology team, contributing to the <a href="https://developer.apple.com/machine-learning/create-ml/" target="_blank">Create ML</a> framework and macOS app. James is driven to create change in the mobile apps and machine learning spaces!</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/jayven.jpeg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/nsspain" target="_blank">Jayven Nhan</a>
+                                    <div class="meta">
+                                        <span class="c1">Practical Combine Integrations with UIKit Projects</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Jayven Nhan is a software engineer, technical editor, and book author. Outside of coding, he enjoys audiobooks. You can find more of Jayven’s work in the iOS community at: <a href="https://www.raywenderlich.com" target="_blank">RayWenderlich</a>, <a href="https://www.appcoda.com" target="_blank">AppCoda</a>, and <a href="https://medium.com/@jayvenn" target="_blank">Medium</a>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/pawel.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/nsspain" target="_blank">Paweł Łopusiński</a>
+                                    <div class="meta">
+                                        <span class="c1">Obscure Swift</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>I'm currently working @ Glovo as an iOS Software Engineer. I've been doing iOS stuff for around 8 years and can't get enough of it - there is always something interesting to look into and dive deep into different topics. Recently I've found great interest in exploring SIL, especially for less obvious cases. This is my first time speaking on a conference and I think it will be a great way to start giving back to this awesome community from which I learned so much on my journey ❤️ If I'm not currently coding I'm most likely goofing around with my kids, playing video and board games, or just being a couch potato devouring next TV series from a (too long) list.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/mirellys.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/syllerim" target="_blank">Mirellys Arteta Davila</a>
+                                    <div class="meta">
+                                        <span class="c1">Leveraging Powerful on-device Machine Learning to build intelligent features in your iOS Apps.</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Mirellys is Software Development Engineer at Discovery Inc. Currently she is part of the team building the global iOS and tvOS streaming App Discovery Plus. She has been coding over the past 18 years, both academically and professionally and she has gained experience building Apps within the Apple ecosystem while working the past 7 years in small and big companies in Spain, The Netherlands and now in London.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/diego.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/dfreniche" target="_blank">Diego Freniche</a>
+                                    <div class="meta">
+                                        <span class="c1">What is a Developer Advocate and why you want one in your team</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Mobile Developer Advocate at MongoDB for Realm. I love everything that heats silicon. Own too many old computers. Can't focus on a single side project. Want to end my career coding in COBOL.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/bas.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/basthomas" target="_blank">Bas Thomas Broek</a>
+                                    <div class="meta">
+                                        <span class="c1">Dancing with Dinosaurs: Objective-C and Swift Interop</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Bas is an iOS and macOS developer with a passion for testability, accessibility and user-centric apps. He cares about communication and collaboration.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/belen.jpeg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/bmolinadelcampo" target="_blank">Belén Molina del Campo</a>
+                                    <div class="meta">
+                                        <span class="c1">Communication skills: channeling your inner scuba diver</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Belén is a Senior iOS Engineer at ustwo Europe, where she has worked on a variety of projects in the healthcare, automotive, and fitness sectors. She loves building products that have meaningful impact on users. She is interested in the intersection between technology and everything else (creativity, society, the environment etc.). She is also extremely passionate about making the tech industry more welcoming and diverse.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/ever.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/earthtoever" target="_blank">Ever Uribe</a>
+                                    <div class="meta">
+                                        <span class="c1">Modernizing away from technical debt</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Ever is the tech lead of iOS for the consumer app at Cornershop by Uber. His career is highlighted by a start in medical apps for therapy, being part of the SpaceX team that sent hundreds of satellites (and a Tesla) into space, working on an autonomous ride-share system powered by Swift, and now helping to build the best on-demand shopping delivery experience in Latin America, the USA, and Canada. He is a strong advocate of Apple’s human interface guidelines, leveraging the latest technologies, and tackling technical debt. Currently living in Chile, in his free time he enjoys the outdoors on long hikes, trying new recipes, pushing for LGBTQ+ awareness in tech, and climate action.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/philippe.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/philippec" target="_blank">Philippe Casgrain</a>
+                                    <div class="meta">
+                                        <span class="c1">Creating great PRs</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Phil is a Senior Staff Software Developer at Lightspeed Commerce, where he works tirelessly with a diverse group of smart and talented individuals to define and implement the future of hospitality, while helping everyone improve their skills, both technical and social. His favourite saying is that while he’s an okay programmer, him two years ago was a moron and him two years in the future is a genius. When he’s not busy coming up with pithy aphorisms, you can find him doing laps at the pool, biking around on his tadpole trike, getting hit in the face by volley-balls, and exploring the world in his tiny RV.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/dj.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/killectro" target="_blank">DJ Mitchell</a>
+                                    <div class="meta">
+                                        <span class="c1">Express Yourself: Writing Expressive View Model Unit Tests</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>DJ is a Staff iOS Engineer living in New York and working at <a href="http://grailed.com" target="_blank">Grailed</a>, a peer-to-peer marketplace for clothing. He learned iOS development way back in iOS 5 which means he (thankfully) never had to do manual retain/release. At Grailed he’s helped build the infrastructure that enables the iOS team to iterate quickly and with confidence. An avid learner, he's spent the last few years diving into the worlds of functional programming, DevOps, and product development best-practices. He fills his free time cooking, eating out, making cocktails, listening to techno, and studying chess.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/leo.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/leopyc" target="_blank">Leo Picado</a>
+                                    <div class="meta">
+                                        <span class="c1">How to travel to Indiana for $200?</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>I've worn many hats during my professional life: designer, full-stack developer, teacher. For the last five years: iOS Developer. I've worked in both large and small companies, from designing and building end to end features, to obsessing over the duration of an animation. Born and raised in Costa Rica, I recently moved to Berlin to work for SoundCloud where I build tools that enable our teams to ship faster and more confidently. I enjoy coffee, dad jokes, basketball, punk rock, code reviews (yeah) and have a soft spot for accessibility.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/stuffmc.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/stuffmc" target="_blank">Manuel "StuFF mc" Carrasco Molina</a>
+                                    <div class="meta">
+                                        <span class="c1">Why every developer should care about the environment</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Based in Düren, Germany, near Cologne, Manuel Carrasco Molina, better known as StuFF mc, started programming with his C64 at age 11 in 1987. He entered professional software development in 1997 and has been developing since. He founded the first French podcast about Apple in 2005 and dove into iOS development at the launch of the SDK in 2008, after spending the first half of his developer career in the Microsoft technologies. He ran ObjCGN.com/SwiftConf.com from 2012 to 2017 which he then handed over to move to further challenges. When he's not developing for the Apple Platforms Stuff is an involved activist and/or local politician (at the city and regional council) in the matters of environment (Hambach & Dannenrod Forest, Ende Gelände, Parents for Future...) and refugees — he spent a few times in east european countries helping his brothers and sisters. In fact, he now thinks of himself way more as a politician than a coder, having not worked 5 days a week as a developer since 2015. Stuff's mother tongue is French, but he also speaks fluently German, English and Spanish, while speaking a bit of Dutch, Arabic and Italian.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/pedro.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/swiftandtips" target="_blank">Pedro Rojas</a>
+                                    <div class="meta">
+                                        <span class="c1">Making cleaner and safer asynchronous code with Swift Concurrency</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>One of the most important features that Swift 5.5 introduced was Concurrency. In this workshop, we will explore how to solve concurrency issues like data races through actors, how to structure our asynchronous code transforming closures into async/await calls, and how building parallel code is now very simple using async let.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div id="c4p" class="section section-callforhelp">
+        <div class="title">
+            <div class="ui container">
+                <div>
+                    <h1 class="ui inverted center aligned header header-primary">
+                        <span class="focus">[</span> Call for Speakers <span class="focus">]</span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="callforpapers">
+            <div class="ui container">
+                <div>
+                    <h2 class="ui inverted header">
+                        <div class="sub header">
+                            <span>Open until June 27th 23:59 PST</span>
+                        </div>
+                        Would you like to join NSSpain's line up of speakers?
+                    </h2>
+                </div>
+                <div>
+                    <a class="ui basic inverted big button" href="https://forms.gle/Kds2ygued7hocRUW9" target="_blank">
+                        Send proposal
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div id="mc" class="section section-speakers">
+        <div class="speakers">
+            <div class="ui container">
+                <div>
+                    <h1 class="ui inverted center aligned header header-primary">
+                        <span class="focus">[</span> MCs <span class="focus">]</span>
+                    </h1>
+                </div>
+                <div class="ui one column stackable aligned grid">
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/daniel.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/dimsumthinking" target="_blank">Daniel Steinberg</a>
+                                    <div class="meta">
+                                        <span class="c1">Dim Sum Thinking</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Daniel is the author of more than a dozen books including the best selling books 
+                                            <a href="https://editorscut.com/Books/SwiftKickstart/bookPage.html?utm_source=nsspain" target="_blank">A Swift Kickstart</a> 
+                                            and <a href="https://www.amazon.com/dp/0983066957?utm_source=nsspain" target="_blank">Dear Elena</a>. 
+                                            He has written apps for the iPhone and the iPad since the SDKs first appeared and 
+                                            has written programs for the Mac all the way back to System 7.
+                                            Daniel presents SwiftUI, Functional Programming, and Swift training and consults 
+                                            through his company <a href="https://www.dimsumthinking.com/?utm_source=nsspain" target="_blank">Dim Sum Thinking</a>. 
+                                            When he's not coding or talking about coding for the Mac, the iPhone, and the 
+                                            iPad he's probably cooking, baking bread, or hanging out with friends.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/berta.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/bertadevant" target="_blank">Berta Devant</a>
+                                    <div class="meta">
+                                        <span class="c1">TravelPerk</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Berta is an iOS developer, swift ❤️ and director of Women Who Code
+                                            Barcelona. She loves learning how things work, using technology to build
+                                            products 🤖 and good ☕️.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="ui items">
+                            <div class="item">
+                                <div class="ui small image">
+                                    <img src="/images/speakers/tim.jpg">
+                                </div>
+                                <div class="content">
+                                    <a class="header" href="http://twitter.com/TimOliverAU" target="_blank">Tim Oliver</a>
+                                    <div class="meta">
+                                        <span class="c1">Drivemode</span>
+                                    </div>
+                                    <div class="description">
+                                        <p>Tim's been a fanboy of iOS development since the iPhone 3G and has been
+                                            doing it professionally since 2013. Originally from Australia, he's
+                                            currently working as an iOS software engineer at Drivemode in Japan where
+                                            he's helping to build iOS software that integrates with automotive
+                                            hardware. Tim loves contributing to open source software and maintains a
+                                            variety of iOS libraries on his GitHub account, helping to power apps by
+                                            companies of the likes of Google and Discord. In his free time, he loves
+                                            playing video games and subjecting hapless souls to his karaoke singing.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div id="tickets" class="section section-tickets">
+        <div class="ui container">
+            <div class="ui one column centered grid">
+                <div class="sixteen wide mobile ten wide tablet ten wide computer center aligned column">
+                    <h1 class="ui inverted center aligned header header-primary">
+                        <span>[</span> Tickets <span>]</span>
+                        <div class="sub header">
+                            Tickets grant access to all conference talks, coffee breaks, lunches and the afterparty. Accommodation is NOT included.
+                        </div>
+                        <div class="sub header">
+                            Please take a look at our <span>[</span> <span class="focus"><a href="coc.html">Code of Conduct</a></span> <span>]</span>
+                        </div>
+                    </h1>
+                </div>
+            </div>
+            <div>
+                <div class="ui two stackable centered cards">
+                    <div class="card">
+                        <div class="content">
+                            <h2 class="ui inverted header">
+                                <strong>Super Early Bird + Early Bird</strong>
+                                <div class="sub header">
+                                    <div class="ticket-description">
+                                        Limited to the first 100 tickets!
+                                    </div>
+                                </div>
+                            </h2>
+                            <div class="description">
+                                <div class="price">
+                                    349€ & 399€
+                                </div>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a class="ui basic inverted big button disabled" href="https://ti.to/nsspain/2022" target="_blank">
+                                Sold out
+                            </a>
+                        </div>
+                        <!-- <div class="extra content">
+                            <a class="ui basic inverted big button" href="https://ti.to/nsspain/2022" target="_blank">
+                                Get yours now!
+                            </a>
+                        </div> -->
+                    </div>
+                    <div class="card">
+                        <div class="content">
+                            <h2 class="ui inverted header">
+                                <strong>Standard</strong>
+                                <div class="sub header">
+                                    <div class="ticket-description">
+                                        Get them while they last
+                                    </div>
+                                </div>
+                            </h2>
+                            <div class="description">
+                                <div class="price">
+                                    449€
+                                </div>
+                            </div>
+                        </div>
+                        <div class="extra content">
+                            <a class="ui basic inverted big button" href="https://ti.to/nsspain/2022" target="_blank">
+                                Get yours now!
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div id="schedule" class="section section-schedule">
+        <div class="ui one column centered grid">
+            <div class="sixteen wide mobile ten wide tablet ten wide computer center aligned column">
+                <h1 class="ui inverted center aligned header header-primary">
+                    <span class="focus">[</span> Schedule <span class="focus">]</span>
+                    <div class="sub header">
+                        Enjoy a conference full of talks you'd love to watch!
+                    </div>
+                </h1>
+            </div>
+        </div>
+        <div class="schedule">
+            <div class="ui container">
+                <div class="schedule schedule-content day-1">
+                    <h2 class="ui center aligned header">
+                        <strong>Pre Conf Day</strong>
+                        <div class="sub header">
+                            <span class="focus">Nov [</span> Day 17th <span class="focus">]</span>
+                        </div>
+                    </h2>
+                    <div>
+                        <div class="ui internally divided relaxed grid">
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>14:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-pedro" href="#!" title="Talk title">
+                                        <strong>Making cleaner and safer asynchronous code with Swift Concurrency</strong>
+                                    </a>
+                                    <p>2 hours workshop free for all attendees</p>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/pedro.jpg"> <span class="focus">[</span> Pedro Rojas <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <h2 class="ui center aligned header">
+                        <strong>Day 1</strong>
+                        <div class="sub header">
+                            <span class="focus">Nov [</span> Day 18th <span class="focus">]</span>
+                        </div>
+                    </h2>
+                    <div>
+                        <div class="ui internally divided relaxed grid">
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>08:30am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <strong>
+                                        ☀️ Doors Open
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>09:30am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <strong>
+                                        👋 Presentation
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>10:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>SRE principles for client-side reliability</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/ramon.jpg"> <span class="focus">[</span> Ramón Medrano <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>11:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Atomic development - Speed up development feedback loop with continuous code deployment</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/an.jpg"> <span class="focus">[</span> An Tran <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>12:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>How to create a media streaming app with SwiftUI and AWS</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/moritz.jpeg"> <span class="focus">[</span> Moritz Philip Recke <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>01:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Building great real-time apps</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/alex.jpeg"> <span class="focus">[</span> Alex Curran <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>02:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Micro/feature frameworks. What, why and how?</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/jeroen.jpg"> <span class="focus">[</span> Jeroen Leenarts <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>03:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>You Can Do it, Put your Backend to it!</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/adrienne.jpg"> <span class="focus">[</span> Adrienne Braganza Tacke <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>04:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Not just another DevOps talk</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/gabriel.jpg"> <span class="focus">[</span> Gabriel Savit <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>05:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Dancing with Dinosaurs: Objective-C and Swift Interop</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/bas.jpg"> <span class="focus">[</span> Bas Thomas Broek <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>06:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <strong>
+                                        🍷 1st party: networking with fellow developers  
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>08:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>There's no IF or ELSE. It's all about YOU.</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/danijela.jpeg"> <span class="focus">[</span> Danijela Vrzan <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>09:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Server Driven UI at scale (@ Allegro)</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/tomasz-tomasz.jpg"> <span class="focus">[</span> Tomasz Gebarowski <span class="focus">]</span>
+                                        <img class="ui avatar image" src="/images/speakers/tomasz-jakub.jpg"> <span class="focus">[</span> Jakub Kuzimski <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>10:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Computer Vision: Not Just For Breakfast Anymore</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/yono.jpg"> <span class="focus">[</span> Yono Mittlefehldt <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>11:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Mac as the Knife: iOS dev tips from the culinary arts</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/nate.jpg"> <span class="focus">[</span> Nate Heagy <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <h2 class="ui center aligned header">
+                        <strong>Day 2</strong>
+                        <div class="sub header">
+                            <span class="focus">Nov [</span> Day 19th <span class="focus">]</span>
+                        </div>
+                    </h2>
+                    <div>
+                        <div class="ui internally divided relaxed grid">
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>12:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Getting Started with Async/Await in iOS</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/azam.jpeg"> <span class="focus">[</span> Mohammad Azam <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>01:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Xcode Cloud: What is it? How to use it? Is it for me?</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/josh.jpeg"> <span class="focus">[</span> Josh Holtz <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>02:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Modular Project Architecture</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/ben.jpg"> <span class="focus">[</span> Ben Scheirman <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>03:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <strong>
+                                        🍷 2nd party: networking with fellow developers  
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>05:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Grasping Reality: Hand Poses with ML and AR</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/james.jpeg"> <span class="focus">[</span> James Dale <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>06:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Practical Combine Integrations with UIKit Projects</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/jayven.jpeg"> <span class="focus">[</span> Jayven Nhan <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>07:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Obscure Swift</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/pawel.jpg"> <span class="focus">[</span> Paweł Łopusiński <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>08:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Leveraging Powerful on-device Machine Learning to build intelligent features in your iOS Apps.</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/mirellys.jpg"> <span class="focus">[</span> Mirellys Arteta Davila <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>09:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>What is a Developer Advocate and why you want one in your team</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/diego.jpg"> <span class="focus">[</span> Diego Freniche <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>10:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Looking through the Mirror 🪞</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/vincent.jpeg"> <span class="focus">[</span> Vincent Pradeilles <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>11:00am UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Communication skills: channeling your inner scuba diver</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/belen.jpeg"> <span class="focus">[</span> Belén Molina del Campo <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>12:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <strong>
+                                        🍷 3rd party: networking with fellow developers  
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>02:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Modernizing away from technical debt</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/ever.jpg"> <span class="focus">[</span> Ever Uribe <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>03:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Creating great PRs</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/philippe.jpg"> <span class="focus">[</span> Philippe Casgrain <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>04:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Express Yourself: Writing Expressive View Model Unit Tests</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/dj.jpg"> <span class="focus">[</span> DJ Mitchell <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>05:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>How to travel to Indiana for $200?</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/leo.jpg"> <span class="focus">[</span> Leo Picado <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>06:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <a class="open-speaker-vlad" href="#!" title="Talk title">
+                                        <strong>Why every developer should care about the environment</strong>
+                                    </a>
+                                    <div class="schedule-user">
+                                        <img class="ui avatar image" src="/images/speakers/stuffmc.jpg"> <span class="focus">[</span> Manuel @StuFFmc Carrasco Molina <span class="focus">]</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="six wide column center aligned time" style="padding-left: 1rem;">
+                                    <span class="focus">[</span> <span>07:00pm UTC</span> <span class="focus">]</span>
+                                </div>
+                                <div class="ten wide column" style="padding-right: 1rem;">
+                                    <strong>
+                                        ❤️ Closing party: thank you for being part of this special event
+                                    </strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div id="sponsorships" class="section section-callforhelp">
+        <div class="title">
+            <div class="ui container">
+                <div>
+                    <h1 class="ui inverted center aligned header header-primary">
+                        <span class="focus">[</span> Sponsorships <span class="focus">]</span>
+                    </h1>
+                </div>
+            </div>
+        </div>
+        <div class="callforsponsors">
+            <div class="ui container">
+                <div>
+                    <h2 class="ui inverted header">
+                        <!-- Ready for 36 continuous hours of talks, community & fun?  -->
+                        Would you or your employer like to sponsor <strong>NSSpain X</strong>?
+                    </h2>
+                </div>
+                <div>
+                    <a class="ui basic inverted big button" href="mailto:sponsors@nsspain.com" target="_blank">
+                        Get in touch
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="sponsors" class="section section-sponsors">
+        <div class="row">
+            <div class="ui container">
+                <div>
+                    <h1 class="ui inverted center aligned header header-primary">
+                        <span class="focus">[</span> Platinum <span class="focus">]</span>
+                    </h1>
+                </div>
+                <div class="one wide column">
+                    <!-- <center><a href="https://beams.fm?utm_source=nsspain&utm_medium=website&utm_content=sponsor_link&utm_campaign=nsspain_2022" target="_blank">
+                        <img class="image platinum-image" src="/images/sponsors/beams.svg">
+                    </a></center> -->
+                </div>
+            </div>
+            <br /><br />
+        </div>
+        <div class="row">
+            <div class="ui container">
+                <div>
+                    <h1 class="ui inverted center aligned header header-primary">
+                        <span class="focus">[</span> Gold <span class="focus">]</span>
+                    </h1>
+                </div>
+                <div class="one wide column">
+                    <!-- <center><a href="https://www.revenuecat.com?utm_source=nsspain&utm_medium=website&utm_content=sponsor_link&utm_campaign=nsspain_2022" target="_blank">
+                        <img class="image gold-image" src="/images/sponsors/revenuecat.svg">
+                    </a></center> -->
+                </div>
+            </div>
+            <br /><br />
+        </div>
+        <div class="row">
+            <div class="ui container">
+                <div>
+                    <h1 class="ui inverted center aligned header header-primary">
+                        <span class="focus">[</span> Silver <span class="focus">]</span>
+                    </h1>
+                </div>
+                <div class="one wide column">
+                    <!-- <center><a href="https://getstream.io/chat/sdk/ios/?utm_source=ns_spain&utm_medium=whole_event_V&utm_content=developer&utm_campaign=nsspain_nov2022" target="_blank">
+                        <img class="image silver-image" src="/images/sponsors/stream.svg">
+                    </a></center> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section section-footer">
+        <div class="section section-extra">
+            <div class="extra">
+                <div class="ui container">
+                    <div class="ui three column stackable center aligned grid">
+                        <div class="column">
+                            <h2 class="ui inverted header">
+                                <div class="sub header">
+                                    <span>
+                                        Media
+                                        <br />
+                                        [ <span class="focus"><a href="https://vimeo.com/nsspain" target="_blank">Watch our talks on Vimeo</a></span> ]
+                                        <br />
+                                        [ <span class="focus"><a href="https://twitter.com/nsspain" target="_blank">Drop a tweet! @NSSpain</a></span> ]
+                                    </span>
+                                    <br /><br /><br />
+                                    <span>
+                                        Previous Remote Edition
+                                        <br />
+                                        [ <span class="focus"><a href="https://2021.nsspain.com/" target="_blank">NSSpain 2021 website</a></span> ]
+                                        <br /><br /><br />
+                                        Previous In-Person Edition
+                                        <br />
+                                        [ <span class="focus"><a href="https://2019.nsspain.com/" target="_blank">NSSpain 2019 website</a></span> ]
+                                    </span>
+                                </div>
+                            </h2>
+                        </div>
+                        <div class="column">
+                            <h2 class="ui inverted header">
+                                <div class="sub header">
+                                    <span>
+                                        Web Design & Code by
+                                        <br />
+                                        [ <span class="focus"><a href="https://twitter.com/lascorbe" target="_blank">Luis Ascorbe</a></span> ]
+                                        <br />
+                                        [ <span class="focus"><a href="https://twitter.com/borjareinares" target="_blank">Borja Reinares</a></span> ]
+                                    </span>
+                                    <br /><br /><br />
+                                    <span>
+                                        Artwork by
+                                        <br />
+                                        [ <span class="focus"><a href="https://twitter.com/erikerice" target="_blank">Erik De Erice</a></span> ]
+                                    </span>
+                                </div>
+                            </h2>
+                        </div>
+                        <div class="column">
+                            <h2 class="ui inverted header">
+                                <div class="sub header">
+                                    <span>
+                                        Links
+                                        <br />
+                                        [ <span class="focus"><a href="mailto:info@nsspain.com">Contact</a></span> ]
+                                        <br />
+                                        [ <span class="focus"><a href="mailto:sponsors@nsspain.com">Become a sponsor</a></span> ]
+                                        <br />
+                                        [ <span class="focus"><a href="coc.html">Code of Conduct</a></span> ]
+                                        <br />
+                                        [ <span class="focus"><a href="faq.html">FAQ</a></span> ]
+                                        <br />
+                                        [ <span class="focus"><a href="travel.html">Travel</a></span> ]
+                                        <br />
+                                        [ <span class="focus"><a href="about.html">About</a></span> ]
+                                    </span>
+                                </div>
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-note">
+            <div>
+                © 2022 NSSpain Conference. Brought to you by <a href="https://twitter.com/lascorbe" target="_blank">Luis Ascorbe</a> & <a href="https://twitter.com/BorjaReinares" target="_blank">Borja Reinares</a>.
+            </div>
+        </div>
+    </div>
+</body>
+</html>
