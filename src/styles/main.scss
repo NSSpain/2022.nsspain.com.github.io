@@ -354,6 +354,7 @@ h3.ui.header .sub.header, h4.ui.header .sub.header {
     padding-top: 10rem;
     padding-bottom: 3rem;
     img.image {
+        width: 100%;
         padding-top: 1rem;
         padding-bottom: 5rem;
     }
@@ -672,6 +673,19 @@ h1.ui.header.header-primary {
         }
     }
 }
+@media only screen and (max-width: 850px) {
+    body.index {
+        background-image: url(/images/logo-large-bg.png);
+        background-repeat: no-repeat;
+        background-position: 70% 55%;
+        background-size: 55%;
+    }
+    .section-blank {
+        .shrinked-2 {
+            max-width: 100%;
+        }
+    }
+}
 @media only screen and (max-width: 767px) {
     body.index {
         background-image: url(/images/logo-large-bg.png);
@@ -692,7 +706,7 @@ h1.ui.header.header-primary {
         margin: 0;
     }
     h1.ui.header.header-primary {
-        width: 441px;
+        // width: 441px;
         display: block;
         margin-left: auto;
         margin-right: auto;
@@ -708,13 +722,13 @@ h1.ui.header.header-primary {
 }
 @media only screen and (max-width: 441px) {
     body.index {
-        background-image: url(/images/logo-large-bg.png);
+        background-image: none;
         background-repeat: no-repeat;
         background-position: 70% 105%;
         background-size: 80%;
     }
-    h1.ui.header.header-primary {
-        margin-left: 80px;
-        margin-right: 80px;
-    }
+    // h1.ui.header.header-primary {
+    //     margin-left: 80px;
+    //     margin-right: 80px;
+    // }
 }
