@@ -20,7 +20,7 @@ body {
 body.index {
     background-image: url(/images/logo-large-bg.png);
     background-repeat: no-repeat;
-    background-position: 70% 70%;
+    background-position: 100% 150%;
     background-size: 55%;
 }
 .ui.header,
@@ -584,6 +584,12 @@ h1.ui.header.header-primary {
     }
 }
 @media only screen and (max-width: 1580px) {
+    body.index {
+        background-image: url(/images/logo-large-bg.png);
+        background-repeat: no-repeat;
+        background-position: 70% 110%;
+        background-size: 55%;
+    }
     .menu-brand {
         max-width: 100%;
     }
@@ -654,6 +660,12 @@ h1.ui.header.header-primary {
     }
 }
 @media only screen and (max-width: 940px) {
+    body.index {
+        background-image: url(/images/logo-large-bg.png);
+        background-repeat: no-repeat;
+        background-position: 70% 100%;
+        background-size: 55%;
+    }
     .section-blank {
         .shrinked-2 {
             max-width: 100%;
@@ -661,6 +673,12 @@ h1.ui.header.header-primary {
     }
 }
 @media only screen and (max-width: 767px) {
+    body.index {
+        background-image: url(/images/logo-large-bg.png);
+        background-repeat: no-repeat;
+        background-position: 70% 100%;
+        background-size: 55%;
+    }
     .section-intro {
         h1.ui.header.header-primary {
             margin-left: 0;
@@ -689,11 +707,11 @@ h1.ui.header.header-primary {
     }
 }
 @media only screen and (max-width: 441px) {
-    body {
+    body.index {
         background-image: url(/images/logo-large-bg.png);
         background-repeat: no-repeat;
-        background-position: 70% 100%;
-        background-size: 55%;
+        background-position: 70% 105%;
+        background-size: 80%;
     }
     h1.ui.header.header-primary {
         margin-left: 80px;
