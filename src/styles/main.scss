@@ -584,7 +584,7 @@ h1.ui.header.header-primary {
     }
 }
 @media only screen and (max-width: 1580px) {
-    body {
+    body.index {
         background-image: url(/images/logo-large-bg.png);
         background-repeat: no-repeat;
         background-position: 70% 150%;
@@ -660,7 +660,7 @@ h1.ui.header.header-primary {
     }
 }
 @media only screen and (max-width: 940px) {
-    body {
+    body.index {
         background-image: url(/images/logo-large-bg.png);
         background-repeat: no-repeat;
         background-position: 70% 140%;
@@ -673,7 +673,7 @@ h1.ui.header.header-primary {
     }
 }
 @media only screen and (max-width: 767px) {
-    body {
+    body.index {
         background-image: url(/images/logo-large-bg.png);
         background-repeat: no-repeat;
         background-position: 70% 120%;
@@ -707,7 +707,7 @@ h1.ui.header.header-primary {
     }
 }
 @media only screen and (max-width: 441px) {
-    body {
+    body.index {
         background-image: url(/images/logo-large-bg.png);
         background-repeat: no-repeat;
         background-position: 70% 150%;
