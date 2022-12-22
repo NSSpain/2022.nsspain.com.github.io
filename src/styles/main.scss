@@ -362,7 +362,12 @@ h3.ui.header .sub.header, h4.ui.header .sub.header {
         max-width: 600px;
     }
     img.image.gold-image {
-        max-width: 400px;
+        max-width: 300px;
+        max-height: 200;
+        width: auto;
+        height: auto;
+        vertical-align: middle;
+        display: inline-block;
     }
     img.image.silver-image {
         max-width: 200px;
